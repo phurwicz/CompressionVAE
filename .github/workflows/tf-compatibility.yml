@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.7', '3.8']
+        python-version: ['3.6', '3.8']
 
     steps:
       - uses: actions/checkout@v2
@@ -20,9 +20,9 @@ jobs:
           pip install numpy matplotlib joblib tqdm
       
       - name: tf1
-        if: ${{ matrix.python-version == '3.7' }}
+        if: ${{ matrix.python-version == '3.6' }}
         run: |
-          pip install tensorflow==1.15.0
+          pip install tensorflow<2
           python test_script.py
           
       - name: tf2
