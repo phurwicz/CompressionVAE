@@ -18,6 +18,7 @@ jobs:
 
       - name: common deps
         run: |
+          python -m pip install --upgrade pip setuptools
           pip install numpy matplotlib joblib tqdm
       
       - name: tf1
