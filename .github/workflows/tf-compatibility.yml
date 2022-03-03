@@ -1,0 +1,31 @@
+# This workflow will build the latest source files in Anaconda.
+
+name: Tensorflow Compatibility Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tf1:
+    runs-on: ubuntu-latest
+    python-version: '3.7'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: test
+        run: |
+          pip install numpy matplotlib joblib tqdm tensorflow==1.15.0
+          python test_script.py
+  
+  tf2:
+    runs-on: ubuntu-latest
+    python-version: '3.8'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: test
+        run: |
+          pip install numpy matplotlib joblib tqdm tensorflow>=2
+          python test_script.py
