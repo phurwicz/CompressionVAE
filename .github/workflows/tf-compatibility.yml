@@ -6,26 +6,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  tf1:
+  test:
     runs-on: ubuntu-latest
-    python-version: '3.7'
+    strategy:
+      matrix:
+        python-version: ['3.7', '3.8']
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: test
+      - name: common deps
         run: |
-          pip install numpy matplotlib joblib tqdm tensorflow==1.15.0
+          pip install numpy matplotlib joblib tqdm
+      
+      - name: tf1
+        if: ${{ matrix.python-version == '3.7' }}
+        run: |
+          pip install tensorflow==1.15.0
           python test_script.py
-  
-  tf2:
-    runs-on: ubuntu-latest
-    python-version: '3.8'
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: test
+          
+      - name: tf2
+        if: ${{ matrix.python-version == '3.8' }}
         run: |
-          pip install numpy matplotlib joblib tqdm tensorflow>=2
+          pip install tensorflow>=2
           python test_script.py
