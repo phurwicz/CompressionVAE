@@ -9,6 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ['3.6', '3.8']
 
@@ -22,7 +23,7 @@ jobs:
       - name: tf1
         if: ${{ matrix.python-version == '3.6' }}
         run: |
-          pip install tensorflow<2
+          pip install tensorflow==1.15.0
           python test_script.py
           
       - name: tf2
